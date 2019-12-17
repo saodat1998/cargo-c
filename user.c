@@ -129,7 +129,7 @@ int main (int argc, char *argv[])
     gtk_widget_hide (GTK_WIDGET(window_order));
 
 
-    gtk_widget_show(StartWindow);
+    gtk_widget_show(window_order);
    
     gtk_main();
 
@@ -140,12 +140,17 @@ int main (int argc, char *argv[])
                                                             //Starting window
     const gchar *USERNAME;
     const gchar *PASSWORD;
-gboolean enteredUsername(GtkEntry *e1, gpointer  user)
+    const gchar *TITLE;
+    const gchar *TYPE;
+    const gchar *VOLUME;
+    const gchar *STATUS;
+    
+gboolean enteredUsername(GtkEntry *e1, gpointer user)
     {
         USERNAME = gtk_entry_get_text ((e1));
         return FALSE;
     }
-    gboolean enteredPassword(GtkEntry *e2, gpointer  user)
+    gboolean enteredPassword(GtkEntry *e2, gpointer user)
     {
         PASSWORD = gtk_entry_get_text ((e2));
         return FALSE;
@@ -176,12 +181,12 @@ void submit_clicked(GtkButton *b1, gpointer  entry1)
 }
                                                             //menu drink
  
-void on_pepsi_toggled(GtkToggleButton *togglebutton,  gpointer *user_data)
+/*void on_pepsi_toggled(GtkToggleButton *togglebutton,  gpointer *user_data)
 {
     gboolean button_state;
     
     button_state = gtk_toggle_button_get_active(togglebutton);
-         GtkTreeIter iter;
+    GtkTreeIter iter;
     GtkTreeView *treeview_payment = GTK_TREE_VIEW(user_data);
     GtkListStore *liststore1 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment));
 
@@ -194,15 +199,45 @@ void on_pepsi_toggled(GtkToggleButton *togglebutton,  gpointer *user_data)
     else {
     gtk_list_store_remove (GTK_LIST_STORE(liststore1), &iter);
     }
-}
+}*/
 
   
                                                 //Menu Payment
-void on_order_clicked()
+gboolean enteredTitle(GtkEntry *p1, gpointer  product_title)
+    {
+        TITLE = gtk_entry_get_text ((p1));
+        return FALSE;
+    }
+gboolean enteredType(GtkEntry *p2, gpointer  product_type)
+    {
+        TYPE = gtk_entry_get_text ((p2));
+        return FALSE;
+    }
+gboolean enteredVolume(GtkEntry *p3, gpointer  product_vol)
 {
-    send_product(cola);
-  //  gtk_widget_show(MainWindow);
-  //  gtk_widget_hide(window_payment);
+    VOLUME = gtk_entry_get_text ((p3));
+    return FALSE;
+}
+// gboolean enteredVolType(GtkEntry *p4, gpointer  user_data4)
+// {
+//     VOLUME = strncat(VOLUME, gtk_entry_get_text ((p4)), 5);
+//     return FALSE;
+// }
+    
+void product_submit_clicked(GtkButton *b1, gpointer *user_data)
+{
+    GtkTreeIter iter;
+    GtkTreeView *treeview_payment = GTK_TREE_VIEW((user_data));
+    GtkListStore *liststore1 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment));
+       
+   // gtk_list_store_remove (GTK_LIST_STORE(liststore1), &iter);
+    //printf("%s\n", VOLUME);
+    gtk_list_store_append(liststore1, &iter);
+    //gtk_list_store_set(liststore1, &iter, 0, "Pepsi Cola", 1, "sdsdsd", 2, "10.0" ,3, "10.0", -1);
+   gtk_list_store_set(liststore1, &iter, 0,  TITLE, 1, TYPE, 2, VOLUME, 3, "on hold", -1);
+  
+    gtk_widget_hide(window_order);
+    gtk_widget_show(window_payment);
 }
 
 
