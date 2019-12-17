@@ -1,0 +1,21 @@
+For User side 
+
+gcc -export-dynamic -Wall `pkg-config --cflags --libs gtk+-3.0` user.c -o user `pkg-config --cflags --libs gtk+-3.0`
+
+./user
+
+username: user
+password: 1234
+
+
+
+
+For for Admin side
+
+gcc -export-dynamic -Wall `pkg-config --cflags --libs gtk+-3.0` admin.c -o admin -pthread `pkg-config --cflags --libs gtk+-3.0`
+
+./admin
+
+
+username: admin
+password: 1234
