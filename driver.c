@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <mysql/mysql.h>
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -28,6 +29,16 @@ GtkWidget *window_order_history;
 
 #define PORT 8888
 #define BUFSIZE 1024
+
+
+
+static char *host = "localhost";
+static char *user = "dadakhon";
+static char *password = "1";
+static char *dbname = "cargo";
+unsigned int port = 3306; 
+static char *unix_socket = NULL; // To specify connection type
+unsigned int flag = 0; // To specify ODBS connection
 
 
 int signal_cola=0;
@@ -151,7 +162,21 @@ void connect_request(int *sockfd, struct sockaddr_in *my_addr)
 
 int main (int argc, char *argv[])
 {
-	
+
+  MYSQL *conn;
+  
+  conn = mysql_init(NULL); //To prepare sturcture to connection
+  
+  if (!(mysql_real_connect(conn, host, user, password, dbname, port, unix_socket, flag)))
+  {
+    fprintf(stderr, "nError: %s [%d]\n", mysql_error(conn), mysql_errno(conn));
+    exit(1);
+  }
+  printf("Connection Successfull\n\n"); 
+  
+  return EXIT_SUCCESS;
+  
+
    pthread_t thread_glade;
 	
 	fd_set master;
