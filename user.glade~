@@ -2,62 +2,137 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkImage" id="image1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">images/drink.png</property>
-  </object>
   <object class="GtkImage" id="image2">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="pixbuf">images/payment.png</property>
   </object>
-  <object class="GtkImage" id="image3">
+  <object class="GtkWindow" id="MainWindow">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="pixbuf">images/vegetable.png</property>
-  </object>
-  <object class="GtkImage" id="image4">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">images/sweets.png</property>
-  </object>
-  <object class="GtkImage" id="image5">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">images/bread.png</property>
-  </object>
-  <object class="GtkImage" id="image6">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">images/meat.png</property>
-  </object>
-  <object class="GtkImage" id="image7">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">images/stationary.png</property>
-  </object>
-  <object class="GtkImage" id="image8">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">images/parfume.png</property>
-  </object>
-  <object class="GtkImage" id="image9">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">images/toys.png</property>
+    <property name="title" translatable="yes">Online Shopping System</property>
+    <property name="resizable">False</property>
+    <property name="window_position">center</property>
+    <property name="default_width">1000</property>
+    <property name="default_height">600</property>
+    <property name="icon">images/icon4.png</property>
+    <property name="gravity">center</property>
+    <signal name="activate-default" handler="gtk_widget_show" swapped="no"/>
+    <signal name="activate-focus" handler="gtk_widget_show" swapped="no"/>
+    <signal name="delete-event" handler="gtk_widget_hide" swapped="no"/>
+    <signal name="destroy" handler="gtk_widget_destroy" swapped="no"/>
+    <signal name="destroy-event" handler="gtk_widget_hide" swapped="no"/>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkActionBar">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="width_request">400</property>
+                <property name="height_request">70</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="can_default">True</property>
+                <property name="has_default">True</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="margin_left">13</property>
+                <property name="margin_bottom">13</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">False</property>
+                <property name="label" translatable="yes">Welcome to Online Shopping System 
+                         Menu</property>
+                <property name="justify">fill</property>
+                <property name="wrap">True</property>
+                <property name="width_chars">0</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans Bold 14"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="move_payment">
+                <property name="label">Payment</property>
+                <property name="height_request">30</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="border_width">0</property>
+                <property name="image">image2</property>
+                <property name="image_position">top</property>
+                <property name="always_show_image">True</property>
+                <signal name="clicked" handler="on_move_payment_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="quit">
+                <property name="label">gtk-quit</property>
+                <property name="width_request">60</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="border_width">0</property>
+                <property name="use_stock">True</property>
+                <property name="image_position">top</property>
+                <property name="always_show_image">True</property>
+                <signal name="clicked" handler="on_quit_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+    </child>
   </object>
   <object class="GtkListStore" id="liststore1">
     <columns>
-      <!-- column-name gchararray1 -->
+      <!-- column-name title -->
       <column type="gchararray"/>
-      <!-- column-name gfloat1 -->
-      <column type="gfloat"/>
-      <!-- column-name gfloat2 -->
-      <column type="gfloat"/>
-      <!-- column-name gfloat3 -->
-      <column type="gfloat"/>
+      <!-- column-name type -->
+      <column type="gchararray"/>
+      <!-- column-name volume -->
+      <column type="gchararray"/>
+      <!-- column-name status -->
+      <column type="gchararray"/>
     </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">MFDNF</col>
+        <col id="1" translatable="yes">FDFD</col>
+        <col id="2" translatable="yes">DFDF</col>
+        <col id="3" translatable="yes">SSS</col>
+      </row>
+    </data>
   </object>
   <object class="GtkWindow" id="window_payment">
     <property name="can_focus">False</property>
@@ -129,53 +204,57 @@
                   <object class="GtkTreeSelection"/>
                 </child>
                 <child>
-                  <object class="GtkTreeViewColumn" id="treeviewcolumn_name">
+                  <object class="GtkTreeViewColumn" id="treeviewcolumn_title">
                     <property name="min_width">150</property>
-                    <property name="title" translatable="yes">Name</property>
+                    <property name="title" translatable="yes">Title</property>
                     <property name="expand">True</property>
                     <child>
                       <object class="GtkCellRendererText" id="cellrenderertext7"/>
                       <attributes>
+                        <attribute name="size">5</attribute>
                         <attribute name="text">0</attribute>
                       </attributes>
                     </child>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkTreeViewColumn" id="treeviewcolumn_quantity">
+                  <object class="GtkTreeViewColumn" id="treeviewcolumn_type">
                     <property name="min_width">150</property>
-                    <property name="title" translatable="yes">Quantity</property>
+                    <property name="title" translatable="yes">Type</property>
                     <property name="expand">True</property>
                     <child>
                       <object class="GtkCellRendererSpin" id="cellrendererspin4"/>
                       <attributes>
-                        <attribute name="text">1</attribute>
+                        <attribute name="single-paragraph-mode">0</attribute>
+                        <attribute name="text">0</attribute>
                       </attributes>
                     </child>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkTreeViewColumn" id="treeviewcolumn_price">
+                  <object class="GtkTreeViewColumn" id="treeviewcolumn_Volume">
                     <property name="min_width">150</property>
-                    <property name="title" translatable="yes">Price</property>
+                    <property name="title" translatable="yes">Volume</property>
                     <property name="expand">True</property>
                     <child>
                       <object class="GtkCellRendererCombo" id="cellrenderercombo34"/>
                       <attributes>
-                        <attribute name="text">2</attribute>
+                        <attribute name="single-paragraph-mode">0</attribute>
+                        <attribute name="text">0</attribute>
                       </attributes>
                     </child>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkTreeViewColumn" id="treeviewcolumn_Total">
+                  <object class="GtkTreeViewColumn" id="treeviewcolumn_Status">
                     <property name="min_width">200</property>
-                    <property name="title" translatable="yes">Total</property>
+                    <property name="title" translatable="yes">Status</property>
                     <property name="expand">True</property>
                     <child>
                       <object class="GtkCellRendererText" id="cellrenderertext35"/>
                       <attributes>
-                        <attribute name="text">3</attribute>
+                        <attribute name="single-paragraph-mode">0</attribute>
+                        <attribute name="text">0</attribute>
                       </attributes>
                     </child>
                   </object>
@@ -388,315 +467,6 @@
       </object>
     </child>
   </object>
-  <object class="GtkImage" id="mage1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">images/fruit.png</property>
-  </object>
-  <object class="GtkWindow" id="MainWindow">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Online Shopping System</property>
-    <property name="resizable">False</property>
-    <property name="window_position">center</property>
-    <property name="default_width">1000</property>
-    <property name="default_height">600</property>
-    <property name="icon">images/icon4.png</property>
-    <property name="gravity">center</property>
-    <signal name="activate-default" handler="gtk_widget_show" swapped="no"/>
-    <signal name="activate-focus" handler="gtk_widget_show" swapped="no"/>
-    <signal name="delete-event" handler="gtk_widget_hide" swapped="no"/>
-    <signal name="destroy" handler="gtk_widget_destroy" swapped="no"/>
-    <signal name="destroy-event" handler="gtk_widget_hide" swapped="no"/>
-    <child>
-      <placeholder/>
-    </child>
-    <child>
-      <object class="GtkBox">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkActionBar">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="width_request">400</property>
-                <property name="height_request">70</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="can_default">True</property>
-                <property name="has_default">True</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="margin_left">13</property>
-                <property name="margin_bottom">13</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">False</property>
-                <property name="label" translatable="yes">Welcome to Online Shopping System 
-                         Menu</property>
-                <property name="justify">fill</property>
-                <property name="wrap">True</property>
-                <property name="width_chars">0</property>
-                <attributes>
-                  <attribute name="font-desc" value="Sans Bold 14"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="move_payment">
-                <property name="label">Payment</property>
-                <property name="height_request">30</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="border_width">0</property>
-                <property name="image">image2</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_move_payment_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="quit">
-                <property name="label">gtk-quit</property>
-                <property name="width_request">60</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="border_width">0</property>
-                <property name="use_stock">True</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_quit_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkActionBar">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <child>
-              <object class="GtkButton" id="bottom_drink">
-                <property name="label" translatable="yes">       DRINKS      </property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="margin_left">12</property>
-                <property name="margin_right">12</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="image">image1</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_bottom_drink_clicked" object="window_drinks" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="bottom_fruit">
-                <property name="label" translatable="yes">       FRUITS       </property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="margin_left">12</property>
-                <property name="margin_right">12</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="image">mage1</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_bottom_fruit_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="bottom_vegetables">
-                <property name="label" translatable="yes">VEGETABLES</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="margin_left">12</property>
-                <property name="margin_right">12</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="image">image3</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_bottom_vegetables_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkActionBar">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkButton" id="bottom_sweet">
-                <property name="label" translatable="yes">SWEETS</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="margin_left">12</property>
-                <property name="margin_right">12</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="image">image4</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_bottom_sweet_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="bottom_bread">
-                <property name="label" translatable="yes">       BREAD       </property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="margin_left">12</property>
-                <property name="margin_right">12</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="image">image5</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_bottom_bread_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="bottom_meat">
-                <property name="label" translatable="yes">       MEAT       </property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="margin_left">12</property>
-                <property name="margin_right">12</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="image">image6</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_bottom_meat_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkActionBar">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkButton" id="bottom_stationery">
-                <property name="label" translatable="yes">       STATIONERY       </property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="margin_left">12</property>
-                <property name="margin_right">12</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="image">image7</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_bottom_stationery_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="bottom_parfume">
-                <property name="label" translatable="yes">         PARFUME         </property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="margin_left">12</property>
-                <property name="margin_right">12</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="image">image8</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_bottom_parfume_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="bottom_toy">
-                <property name="label" translatable="yes">TOYS</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="margin_left">12</property>
-                <property name="margin_right">12</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="image">image9</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_bottom_toy_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
   <object class="GtkWindow" id="window_order">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Enter order details</property>
@@ -757,6 +527,7 @@
                 <property name="name">product_title</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <signal name="focus-out-event" handler="enteredTitle" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -793,6 +564,7 @@
               <object class="GtkEntry" id="product_type">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <signal name="focus-out-event" handler="enteredType" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -847,6 +619,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="margin_right">1</property>
+                <signal name="focus-out-event" handler="enteredVolume" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -870,6 +643,7 @@
                   <object class="GtkEntry">
                     <property name="can_focus">False</property>
                     <property name="text" translatable="yes">kg</property>
+                    <signal name="focus-out-event" handler="enteredVolType" swapped="no"/>
                   </object>
                 </child>
               </object>
@@ -893,7 +667,7 @@
             <property name="receives_default">True</property>
             <property name="margin_top">10</property>
             <property name="margin_bottom">10</property>
-            <signal name="clicked" handler="product_submit_clicked" swapped="no"/>
+            <signal name="clicked" handler="product_submit_clicked" object="treeview_payment" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
