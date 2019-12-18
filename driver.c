@@ -32,10 +32,10 @@ GtkWidget *window_order_history;
 
 
 
-static char *host = "localhost";
-static char *user = "dadakhon";
-static char *password = "1";
-static char *dbname = "cargo";
+static char *host = "bxkkera27hebzuadghy0-mysql.services.clever-cloud.com";
+static char *user = "upj9gcpm4xe3vaxx";
+static char *password = "nByuvCegwIGu021UxDxK";
+static char *dbname = "bxkkera27hebzuadghy0";
 unsigned int port = 3306; 
 static char *unix_socket = NULL; // To specify connection type
 unsigned int flag = 0; // To specify ODBS connection
