@@ -6,6 +6,7 @@
 // password: 1234
 
 #include <gtk/gtk.h>
+#include <sqlite3.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -27,13 +28,17 @@ GtkWidget *StartWindow;
 GtkWidget *MainWindow;
 GtkWidget *window_order;
 GtkWidget *window_payment;
-
+sqlite3 *db;
+sqlite3_stmt *stmt;
 
 #define BUFSIZE 1024
 
 char cola[]="Coca-cola";
 static char *products[]={'\0'};
 static int counter=0;
+const char* u;
+const char* p;
+const int* user_id;
 
 void f(const char* s, char* res) {
     char* l = strchr(s, ' ');
@@ -128,16 +133,13 @@ int main (int argc, char *argv[])
     gtk_widget_hide (GTK_WIDGET(window_payment));
     gtk_widget_hide (GTK_WIDGET(window_order));
 
-
-    gtk_widget_show(window_order);
+    gtk_widget_show(StartWindow);
    
     gtk_main();
 
     return 0;
 }
-
-
-                                                            //Starting window
+  //Login window
     const gchar *USERNAME;
     const gchar *PASSWORD;
     const gchar *TITLE;
@@ -146,29 +148,62 @@ int main (int argc, char *argv[])
     const gchar *STATUS;
     
 gboolean enteredUsername(GtkEntry *e1, gpointer user)
+{
+    USERNAME = gtk_entry_get_text ((e1));
+    u = USERNAME;
+    return FALSE;
+}
+gboolean enteredPassword(GtkEntry *e2, gpointer user)
+{
+    PASSWORD = gtk_entry_get_text ((e2));
+    p = PASSWORD;
+    return FALSE;
+}
+
+//Login window
+void submit_clicked(GtkButton *button, gpointer  entry1)
+  {
+    sqlite3_open("cargoDB.db", &db);
+
+    if (db == NULL)
     {
-        USERNAME = gtk_entry_get_text ((e1));
-        return FALSE;
-    }
-    gboolean enteredPassword(GtkEntry *e2, gpointer user)
-    {
-        PASSWORD = gtk_entry_get_text ((e2));
-        return FALSE;
+      printf("Failed to open DB\n");
+      return 1;
     }
 
-                                    //Starting window
-void submit_clicked(GtkButton *b1, gpointer  entry1)
-
-    {
-        if (strcmp(USERNAME,"user") == 0 && strcmp(PASSWORD,"1") == 0)
+    printf("selecting user from cargoDB...\n");
+    sqlite3_prepare_v2(db, "select * from users where username = ? and password = ?", -1, &stmt, NULL);
+    sqlite3_bind_text(stmt, 1, u, -1, 0);
+    sqlite3_bind_text(stmt, 2, p, -1, 0);
+    printf("Got results:\n");
+    int num_cols = 0;
+    while (sqlite3_step(stmt) != SQLITE_DONE) {
+      int i;
+      num_cols = sqlite3_column_count(stmt);
+      for (i = 0; i < num_cols; i++)
+      {
+        if(sqlite3_column_type(stmt, i) == SQLITE_INTEGER)
         {
+          user_id = sqlite3_column_int(stmt, i);
+        }
+      }
+    }
+    printf("%s\n", "user_id = " );
+    printf("%d\n", user_id);
+
+    sqlite3_finalize(stmt);
+
+    sqlite3_close(db);
+    
+    if (num_cols)
+      {
       
         gtk_widget_hide(StartWindow);
         gtk_widget_show (window_order);                
         
-         }  
-        
-    }
+      }  
+}
+   
  void on_move_payment_clicked()
  {
     gtk_widget_show(window_payment);
