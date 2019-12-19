@@ -160,6 +160,8 @@ void connect_request(int *sockfd, struct sockaddr_in *my_addr)
   fflush(stdout);
 }
 
+
+
 int main (int argc, char *argv[])
 {
 
@@ -174,6 +176,36 @@ int main (int argc, char *argv[])
   }
   printf("Connection Successfull\n\n"); 
   
+    const char *query = "SELECT * FROM `product` ";
+
+  if (mysql_query(conn, query) != 0)
+  {
+    fprintf(stderr, "%s\n", mysql_error(conn));
+    exit(-1);
+  } else {
+    
+    MYSQL_RES *query_results = mysql_store_result(conn);
+    if (query_results) { // make sure there *are* results..
+      MYSQL_ROW row;
+
+      while((row = mysql_fetch_row(query_results)) !=0)
+      {
+        /* Since your query only requests one column, I'm
+         * just using 'row[0]' to get the first field. */
+
+        /* Set a float 'f' to the value in 'row[0]', or
+         * 0.0f if it's NULL */
+        float f = row[0] ? atof(row[0]) : 0.0f;
+
+        /* Do whatever you need to with 'f' */
+        printf("%f\n", f);
+      }
+
+      /* Free results when done */
+      mysql_free_result(query_results);
+    }
+  }
+
   return EXIT_SUCCESS;
   
 
