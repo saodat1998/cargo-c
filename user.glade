@@ -2,15 +2,10 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">images/payment.png</property>
-  </object>
   <object class="GtkWindow" id="MainWindow">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Online Shopping System</property>
+    <property name="title" translatable="yes">Cargo System Team-12</property>
     <property name="resizable">False</property>
     <property name="window_position">center</property>
     <property name="default_width">1000</property>
@@ -48,8 +43,7 @@
                 <property name="margin_bottom">13</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">False</property>
-                <property name="label" translatable="yes">Welcome to Online Shopping System 
-                         Menu</property>
+                <property name="label" translatable="yes">Cargo System Team-12</property>
                 <property name="justify">fill</property>
                 <property name="wrap">True</property>
                 <property name="width_chars">0</property>
@@ -61,40 +55,6 @@
                 <property name="position">0</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkButton" id="move_payment">
-                <property name="label">Payment</property>
-                <property name="height_request">30</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="border_width">0</property>
-                <property name="image">image2</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_move_payment_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="quit">
-                <property name="label">gtk-quit</property>
-                <property name="width_request">60</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="border_width">0</property>
-                <property name="use_stock">True</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_quit_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">2</property>
-              </packing>
-            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -103,13 +63,64 @@
           </packing>
         </child>
         <child>
-          <placeholder/>
+          <object class="GtkButton" id="move_payment">
+            <property name="label">Order</property>
+            <property name="height_request">30</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="margin_left">20</property>
+            <property name="margin_right">20</property>
+            <property name="margin_bottom">5</property>
+            <property name="border_width">0</property>
+            <property name="image_position">top</property>
+            <property name="always_show_image">True</property>
+            <signal name="clicked" handler="on_order_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
         </child>
         <child>
-          <placeholder/>
+          <object class="GtkButton" id="quit">
+            <property name="label">Order History</property>
+            <property name="width_request">60</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="margin_left">20</property>
+            <property name="margin_right">20</property>
+            <property name="margin_bottom">5</property>
+            <property name="border_width">0</property>
+            <property name="image_position">top</property>
+            <property name="always_show_image">True</property>
+            <signal name="clicked" handler="on_order_history_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
         </child>
         <child>
-          <placeholder/>
+          <object class="GtkButton">
+            <property name="label">gtk-quit</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="margin_left">20</property>
+            <property name="margin_right">20</property>
+            <property name="margin_bottom">5</property>
+            <property name="use_stock">True</property>
+            <signal name="clicked" handler="on_quit_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
         </child>
       </object>
     </child>
@@ -134,7 +145,7 @@
       </row>
     </data>
   </object>
-  <object class="GtkWindow" id="window_payment">
+  <object class="GtkWindow" id="order_history">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Online Shopping System</property>
     <property name="window_position">center</property>
@@ -167,8 +178,7 @@
             <property name="margin_bottom">13</property>
             <property name="hexpand">True</property>
             <property name="vexpand">False</property>
-            <property name="label" translatable="yes">Welcome to Online Shopping System 
-                  Menu - Payment</property>
+            <property name="label" translatable="yes">Cargo System Team-12</property>
             <property name="justify">fill</property>
             <property name="wrap">True</property>
             <property name="width_chars">0</property>
@@ -225,9 +235,7 @@
                     <child>
                       <object class="GtkCellRendererSpin" id="cellrendererspin4"/>
                       <attributes>
-                        <attribute name="single-paragraph-mode">0</attribute>
-                        <attribute name="text">0</attribute>
-                        <attribute name="adjustment">2</attribute>
+                        <attribute name="text">1</attribute>
                       </attributes>
                     </child>
                   </object>
@@ -289,49 +297,10 @@
                 <property name="margin_top">5</property>
                 <property name="margin_bottom">5</property>
                 <property name="border_width">3</property>
-                <signal name="clicked" handler="on_payment_back_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_table_back_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="payment_cancel">
-                <property name="label" translatable="yes">Cancel</property>
-                <property name="width_request">110</property>
-                <property name="height_request">40</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="margin_top">5</property>
-                <property name="margin_bottom">5</property>
-                <property name="border_width">3</property>
-                <signal name="clicked" handler="on_payment_cancel_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="order">
-                <property name="label" translatable="yes">Order</property>
-                <property name="width_request">110</property>
-                <property name="height_request">40</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="margin_top">5</property>
-                <property name="margin_bottom">5</property>
-                <property name="border_width">3</property>
-                <signal name="clicked" handler="on_order_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="pack_type">end</property>
-                <property name="position">2</property>
               </packing>
             </child>
           </object>
@@ -749,6 +718,20 @@
             <property name="margin_top">10</property>
             <property name="margin_bottom">10</property>
             <signal name="clicked" handler="product_submit_clicked" object="treeview_payment" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">9</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="label" translatable="yes">Cancel</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="on_cancel_clicked" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>

@@ -671,7 +671,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="pick_u">
+              <object class="GtkEntry" id="pick_up_date">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">2019-19-12</property>
