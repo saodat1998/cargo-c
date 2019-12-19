@@ -197,7 +197,7 @@ int main (int argc, char *argv[])
 
     gtk_init(&argc, &argv);
    
-    builder = gtk_builder_new_from_file ("admin.glade");
+    builder = gtk_builder_new_from_file ("driver.glade");
     gtk_builder_connect_signals(builder, NULL);
 
     window_admin = GTK_WIDGET(gtk_builder_get_object(builder, "window_admin"));
