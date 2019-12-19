@@ -117,8 +117,7 @@
             </child>
             <child>
               <object class="GtkTreeViewColumn" id="treeviewcolumn_pickup_time">
-                <property name="min_width">50</property>
-                <property name="max_width">50</property>
+                <property name="min_width">150</property>
                 <property name="title" translatable="yes">Pick Up Time</property>
                 <property name="expand">True</property>
                 <child>
@@ -144,8 +143,7 @@
             </child>
             <child>
               <object class="GtkTreeViewColumn" id="treeviewcolumn_dest_time">
-                <property name="min_width">50</property>
-                <property name="max_width">50</property>
+                <property name="min_width">150</property>
                 <property name="title" translatable="yes">Dest time</property>
                 <property name="expand">True</property>
                 <child>
@@ -367,6 +365,9 @@
     <signal name="delete-event" handler="gtk_widget_hide" swapped="no"/>
     <signal name="destroy" handler="gtk_widget_hide" swapped="no"/>
     <signal name="destroy-event" handler="gtk_widget_hide" swapped="no"/>
+    <child>
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="width_request">300</property>
