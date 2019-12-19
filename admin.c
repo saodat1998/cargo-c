@@ -165,7 +165,7 @@ int main (int argc, char *argv[])
 			exit(1);
 		}
 		printf("Connection Successfull\n\n");
-		// /// /// /// /// // // // / / / // // / 
+		// /// /// /// /// // // // / / / // // /
    pthread_t thread_glade;
 
 	fd_set master;
@@ -243,12 +243,41 @@ gboolean enteredUsername(GtkEntry *e1, gpointer  user)
 
 void on_bottom_admin_apply_clicked()
 {
-    if (strcmp(USERNAME,"admin") == 0 && strcmp(PASSWORD,"1234") == 0)
-    {
+    // if (strcmp(USERNAME,"admin") == 0 && strcmp(PASSWORD,"1234") == 0)
+    // {
+		//
+    //     gtk_widget_show(window_order);
+    //     gtk_widget_hide(window_admin);
+    // }
+		const char *query = "SELECT username, password FROM `user` where user_type='admin'";
 
-        gtk_widget_show(window_order);
-        gtk_widget_hide(window_admin);
-    }
+		if (mysql_query(conn, query) != 0)
+		{
+		fprintf(stderr, "%s\n", mysql_error(conn));
+		exit(-1);
+		} else {
+
+		MYSQL_RES *query_results = mysql_store_result(conn);
+		if (query_results) { // make sure there *are* results..
+					MYSQL_ROW row;
+
+					while((row = mysql_fetch_row(query_results)) !=0)
+					{
+
+						/* Do whatever you need to with 'f' */
+						// printf(row[0]);
+						if (strcmp(row[0], USERNAME) == 0 && strcmp(row[1], PASSWORD) == 0)
+						{
+							gtk_widget_show(window_order);
+					    gtk_widget_hide(window_admin);
+						}
+
+					}
+
+					/* Free results when done */
+					mysql_free_result(query_results);
+				}
+			}
 }
 
 void on_logout_clicked()
@@ -286,134 +315,33 @@ exit(-1);
 
 MYSQL_RES *query_results = mysql_store_result(conn);
 if (query_results) { // make sure there *are* results..
-	MYSQL_ROW row;
+			MYSQL_ROW row;
 
-	while((row = mysql_fetch_row(query_results)) !=0)
-	{
+			while((row = mysql_fetch_row(query_results)) !=0)
+			{
 
-		/* Do whatever you need to with 'f' */
-		// printf(row[0]);
+				/* Do whatever you need to with 'f' */
+				// printf(row[0]);
 
-		GtkTreeIter iter;
+				GtkTreeIter iter;
 
-    GtkTreeView *treeview_payment_admin = GTK_TREE_VIEW(admin_data);
+		    GtkTreeView *treeview_payment_admin = GTK_TREE_VIEW(admin_data);
 
-    GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
+		    GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
 
-    gtk_list_store_append(liststore2, &iter);
-    gtk_list_store_set(liststore2, &iter, 0, row[1], 1,  row[2], 2, row[3], 3, row[4], 4, row[5], 5, row[6], 6, row[7], 7, row[8], 8, row[9], -1);
+		    gtk_list_store_append(liststore2, &iter);
+		    gtk_list_store_set(liststore2, &iter, 0, row[1], 1,  row[2], 2, row[3], 3, row[4], 4, row[5], 5, row[6], 6, row[7], 7, row[8], 8, row[9], -1);
 
 
-		gtk_widget_show(window_order_history);
-		gtk_widget_hide(window_order);
+				gtk_widget_show(window_order_history);
+				gtk_widget_hide(window_order);
 
+			}
+
+			/* Free results when done */
+			mysql_free_result(query_results);
+		}
 	}
-
-	/* Free results when done */
-	mysql_free_result(query_results);
-}
-}
-// if(signal_cola == 1)
-//   {
-//     GtkTreeIter iter;
-//
-//     GtkTreeView *treeview_payment_admin = GTK_TREE_VIEW(admin_data);
-//
-//     GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
-//
-//     gtk_list_store_append(liststore2, &iter);
-//
-//     gtk_list_store_set(liststore2, &iter, 0,  cola, 1, 1.0, 2, 9.5 ,3, 9.5, -1);
-//
-//    //products[counter++]="Coca Cola";
-//      signal_cola=0;
-//     }
-//
-//     if(signal_juice == 1)
-//   {
-//     GtkTreeIter iter;
-//
-//     GtkTreeView *treeview_payment_admin = GTK_TREE_VIEW(admin_data);
-//
-//     GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
-//
-//     gtk_list_store_append(liststore2, &iter);
-//
-//     gtk_list_store_set(liststore2, &iter, 0,  juice, 1, 1.0, 2, 9.5 ,3, 9.5, -1);
-//
-//    //products[counter++]="Coca Cola";
-//      signal_juice=0;
-//     }
-//
-//
-//     if(signal_cars == 1)
-//   {
-//     GtkTreeIter iter;
-//
-//     GtkTreeView *treeview_payment_admin = GTK_TREE_VIEW(admin_data);
-//
-//     GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
-//
-//     gtk_list_store_append(liststore2, &iter);
-//
-//     gtk_list_store_set(liststore2, &iter, 0,  cars, 1, 1.0, 2, 5.0 ,3, 5.0, -1);
-//
-//    //products[counter++]="Coca Cola";
-//      signal_cars=0;
-//     }
-//
-// if(signal_carrot == 1)
-//   {
-//     GtkTreeIter iter;
-//
-//     GtkTreeView *treeview_payment_admin = GTK_TREE_VIEW(admin_data);
-//
-//     GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
-//
-//     gtk_list_store_append(liststore2, &iter);
-//
-//     gtk_list_store_set(liststore2, &iter, 0,  carrot, 1, 1.0, 2, 4.0 ,3, 4.0, -1);
-//
-//    //products[counter++]="Coca Cola";
-//      signal_carrot=0;
-//     }
-//
-// if(signal_water == 1)
-//   {
-//     GtkTreeIter iter;
-//
-//     GtkTreeView *treeview_payment_admin = GTK_TREE_VIEW(admin_data);
-//
-//     GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
-//
-//     gtk_list_store_append(liststore2, &iter);
-//
-//     gtk_list_store_set(liststore2, &iter, 0,  water, 1, 1.0, 2, 2.0 ,3, 2.0, -1);
-//
-//    //products[counter++]="Coca Cola";
-//      signal_water=0;
-//     }
-//
-// if(signal_pepsi == 1)
-//   {
-//     GtkTreeIter iter;
-//
-//     GtkTreeView *treeview_payment_admin = GTK_TREE_VIEW(admin_data);
-//
-//     GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
-//
-//     gtk_list_store_append(liststore2, &iter);
-//
-//     gtk_list_store_set(liststore2, &iter, 0,  pepsi, 1, 2.0,2, 9.5 ,3, 19.0, -1);
-//
-//    //products[counter++]="Coca Cola";
-//      signal_pepsi=0;
-//     }
-//     gtk_widget_show(window_order_history);
-//     gtk_widget_hide(window_order);
-//
-//     //     gtk_widget_show(window_order);
-//     // gtk_widget_hide(window_order_history);
 }
 
 void on_bottom_order_history_back_clicked()
