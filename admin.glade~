@@ -19,9 +19,9 @@
       <!-- column-name dest_time -->
       <column type="gchararray"/>
       <!-- column-name status -->
-      <column type="gchararray"/>
+      <column type="gint"/>
       <!-- column-name client_id -->
-      <column type="gchararray"/>
+      <column type="gint"/>
     </columns>
   </object>
   <object class="GtkWindow" id="window_order_history">
@@ -172,7 +172,7 @@
                 <child>
                   <object class="GtkCellRendererSpin" id="cellrendererspin7"/>
                   <attributes>
-                    <attribute name="text">7</attribute>
+                    <attribute name="digits">7</attribute>
                   </attributes>
                 </child>
               </object>
@@ -185,7 +185,7 @@
                 <child>
                   <object class="GtkCellRendererSpin" id="cellrendererspin8"/>
                   <attributes>
-                    <attribute name="text">8</attribute>
+                    <attribute name="digits">7</attribute>
                   </attributes>
                 </child>
               </object>
