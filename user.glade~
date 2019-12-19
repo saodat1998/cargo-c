@@ -227,6 +227,7 @@
                       <attributes>
                         <attribute name="single-paragraph-mode">0</attribute>
                         <attribute name="text">0</attribute>
+                        <attribute name="adjustment">2</attribute>
                       </attributes>
                     </child>
                   </object>
@@ -240,7 +241,7 @@
                       <object class="GtkCellRendererCombo" id="cellrenderercombo34"/>
                       <attributes>
                         <attribute name="single-paragraph-mode">0</attribute>
-                        <attribute name="text">0</attribute>
+                        <attribute name="text">2</attribute>
                       </attributes>
                     </child>
                   </object>
@@ -253,8 +254,7 @@
                     <child>
                       <object class="GtkCellRendererText" id="cellrenderertext35"/>
                       <attributes>
-                        <attribute name="single-paragraph-mode">0</attribute>
-                        <attribute name="text">0</attribute>
+                        <attribute name="text">3</attribute>
                       </attributes>
                     </child>
                   </object>
@@ -369,7 +369,7 @@
             <property name="height_request">50</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Welcome to Online Shopping System</property>
+            <property name="label" translatable="yes">Cargo System Team-12</property>
             <attributes>
               <attribute name="font-desc" value="Sans Bold 14"/>
               <attribute name="foreground" value="#2e2e34343636"/>
@@ -382,18 +382,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkImage">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="pixbuf">images/icon4.png</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkEntry" id="entry1">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -401,7 +389,6 @@
             <property name="margin_left">90</property>
             <property name="margin_right">90</property>
             <property name="margin_top">10</property>
-            <property name="primary_icon_name">accessories-text-editor</property>
             <property name="placeholder_text" translatable="yes">Username</property>
             <signal name="focus-out-event" handler="enteredUsername" swapped="no"/>
           </object>
@@ -418,7 +405,6 @@
             <property name="margin_left">90</property>
             <property name="margin_right">90</property>
             <property name="visibility">False</property>
-            <property name="primary_icon_name">seahorse-preferences</property>
             <property name="placeholder_text" translatable="yes">Password</property>
             <signal name="focus-out-event" handler="enteredPassword" swapped="no"/>
           </object>
@@ -443,25 +429,6 @@
             <property name="expand">False</property>
             <property name="fill">False</property>
             <property name="position">4</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label2">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_bottom">10</property>
-            <property name="label" translatable="yes">Copyrights 2018  by  inodir. All rights reserved.</property>
-            <attributes>
-              <attribute name="font-desc" value="Sans Bold 10"/>
-              <attribute name="foreground" value="#555557575353"/>
-              <attribute name="absolute-size" value="12000"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">5</property>
           </packing>
         </child>
       </object>
@@ -660,6 +627,120 @@
           </packing>
         </child>
         <child>
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="row_homogeneous">True</property>
+            <property name="column_homogeneous">True</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Pick-up destination and time</property>
+                <property name="wrap">True</property>
+                <property name="xalign">0.059999998658895493</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="row_homogeneous">True</property>
+            <property name="column_homogeneous">True</property>
+            <child>
+              <object class="GtkEntry" id="pick_up">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">Tashkent</property>
+                <signal name="focus-out-event" handler="pickUp" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="pick_u">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">2019-19-12</property>
+                <signal name="focus-out-event" handler="pickUpDate" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">6</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Delivering destination and time</property>
+            <property name="wrap">True</property>
+            <property name="xalign">0.059999998658895493</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">7</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="row_homogeneous">True</property>
+            <property name="column_homogeneous">True</property>
+            <child>
+              <object class="GtkEntry" id="destination">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">New York</property>
+                <signal name="focus-out-event" handler="enteredDestination" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="destinationDate">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">2020-20-01</property>
+                <signal name="focus-out-event" handler="destinationDate" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">8</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkButton" id="product_submit">
             <property name="label" translatable="yes">Submit</property>
             <property name="visible">True</property>
@@ -672,7 +753,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">5</property>
+            <property name="position">10</property>
           </packing>
         </child>
       </object>

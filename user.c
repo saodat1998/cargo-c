@@ -21,6 +21,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <pthread.h>
+#include <mysql/mysql.h>
 
 
 GtkBuilder *builder;
@@ -33,12 +34,32 @@ sqlite3_stmt *stmt;
 
 #define BUFSIZE 1024
 
+
+static char *host = "bxkkera27hebzuadghy0-mysql.services.clever-cloud.com";
+static char *user = "upj9gcpm4xe3vaxx";
+static char *password = "nByuvCegwIGu021UxDxK";
+static char *dbname = "bxkkera27hebzuadghy0";
+unsigned int port = 3306; 
+static char *unix_socket = NULL; // To specify connection type
+unsigned int flag = 0; // To specify ODBS connection
+
+
 char cola[]="Coca-cola";
 static char *products[]={'\0'};
 static int counter=0;
 const char* u;
 const char* p;
-const int* user_id;
+const gchar *USERNAME;
+const gchar *PASSWORD;
+const gchar *TITLE;
+const gchar *TYPE;
+const gchar *VOLUME;
+const gchar *PICKUP;
+const gchar *DESTINATION;
+const gchar *PICKUPDATE;
+const gchar *DESTINATIONDATE;
+const gchar *STATUS;
+const gchar *USER_ID;
 
 void f(const char* s, char* res) {
     char* l = strchr(s, ' ');
@@ -140,12 +161,6 @@ int main (int argc, char *argv[])
     return 0;
 }
   //Login window
-    const gchar *USERNAME;
-    const gchar *PASSWORD;
-    const gchar *TITLE;
-    const gchar *TYPE;
-    const gchar *VOLUME;
-    const gchar *STATUS;
     
 gboolean enteredUsername(GtkEntry *e1, gpointer user)
 {
@@ -163,45 +178,78 @@ gboolean enteredPassword(GtkEntry *e2, gpointer user)
 //Login window
 void submit_clicked(GtkButton *button, gpointer  entry1)
   {
-    sqlite3_open("cargoDB.db", &db);
 
-    if (db == NULL)
+
+  MYSQL *conn;
+  
+  conn = mysql_init(NULL); //To prepare sturcture to connection
+  
+  if (!(mysql_real_connect(conn, host, user, password, dbname, port, unix_socket, flag)))
+  {
+    fprintf(stderr, "nError: %s [%d]\n", mysql_error(conn), mysql_errno(conn));
+    exit(1);
+  }
+  printf("Connection Successfull\n\n"); 
+  
+  
+    const char *query = "SELECT * FROM `user` where username=";
+    char * new_str ;
+    if((new_str = malloc(strlen(query)+strlen(u)+2)) != NULL){
+        new_str[0] = '\0';   // ensures the memory is an empty string
+        strcat(new_str,query);
+        strcat(new_str,"'");
+        strcat(new_str,u);
+        strcat(new_str,"'");
+        strcat(new_str," and password=");
+    }
+    query = new_str;
+     //const char *query = "SELECT * FROM `user` where username=";
+    //char * new_str ;
+    if((new_str = malloc(strlen(query)+strlen(u)+2)) != NULL){
+        new_str[0] = '\0';   // ensures the memory is an empty string
+        strcat(new_str,query);
+        strcat(new_str,"'");
+        strcat(new_str,p);
+        strcat(new_str,"'");
+        strcat(new_str,";");
+    }
+    printf("%s\n", new_str);
+    if (mysql_query(conn, new_str) != 0)
     {
-      printf("Failed to open DB\n");
-      return 1;
-    }
-
-    printf("selecting user from cargoDB...\n");
-    sqlite3_prepare_v2(db, "select * from users where username = ? and password = ?", -1, &stmt, NULL);
-    sqlite3_bind_text(stmt, 1, u, -1, 0);
-    sqlite3_bind_text(stmt, 2, p, -1, 0);
-    printf("Got results:\n");
-    int num_cols = 0;
-    while (sqlite3_step(stmt) != SQLITE_DONE) {
-      int i;
-      num_cols = sqlite3_column_count(stmt);
-      for (i = 0; i < num_cols; i++)
-      {
-        if(sqlite3_column_type(stmt, i) == SQLITE_INTEGER)
-        {
-          user_id = sqlite3_column_int(stmt, i);
-        }
-      }
-    }
-    printf("%s\n", "user_id = " );
-    printf("%d\n", user_id);
-
-    sqlite3_finalize(stmt);
-
-    sqlite3_close(db);
+      fprintf(stderr, "%s\n", mysql_error(conn));
+      exit(-1);
+    } else {
     
-    if (num_cols)
+    MYSQL_RES *query_results = mysql_store_result(conn);
+    
+    if (query_results) { // make sure there *are* results..
+      MYSQL_ROW row;
+
+
+      int check = 0;
+      // printf("%s\n", row[0]);
+
+      while((row = mysql_fetch_row(query_results)) !=0)
       {
-      
+        check = 1;
+        //printf("%s\t%s\t%s\t%s\t\n",row[0],row[1], row[2], row[3]);
+        USER_ID = row[0];
+        
+      }
+
+      mysql_free_result(query_results);
+
+       if (check)
+      {
+        
         gtk_widget_hide(StartWindow);
         gtk_widget_show (window_order);                
         
       }  
+    }
+  }
+
+   
 }
    
  void on_move_payment_clicked()
@@ -249,27 +297,122 @@ gboolean enteredType(GtkEntry *p2, gpointer  product_type)
         return FALSE;
     }
 gboolean enteredVolume(GtkEntry *p3, gpointer  product_vol)
-{
-    VOLUME = gtk_entry_get_text ((p3));
-    return FALSE;
-}
-// gboolean enteredVolType(GtkEntry *p4, gpointer  user_data4)
-// {
-//     VOLUME = strncat(VOLUME, gtk_entry_get_text ((p4)), 5);
-//     return FALSE;
-// }
+    {
+        VOLUME = gtk_entry_get_text ((p3));
+        return FALSE;
+    }
+gboolean pickUp(GtkEntry *p4, gpointer  pick_up)
+    {
+        PICKUP = gtk_entry_get_text ((p4));
+        return FALSE;
+    }
+gboolean pickUpDate(GtkEntry *p5, gpointer  pick_up_date)
+    {
+        PICKUPDATE = gtk_entry_get_text ((p5));
+        return FALSE;
+    }
+gboolean enteredDestination(GtkEntry *p6, gpointer  destination)
+    {
+        DESTINATION = gtk_entry_get_text ((p6));
+        return FALSE;
+    }
+gboolean destinationDate(GtkEntry *p7, gpointer  destination_date)
+    {
+        DESTINATIONDATE = gtk_entry_get_text ((p7));
+        return FALSE;
+    }
+
     
 void product_submit_clicked(GtkButton *b1, gpointer *user_data)
 {
-    GtkTreeIter iter;
-    GtkTreeView *treeview_payment = GTK_TREE_VIEW((user_data));
-    GtkListStore *liststore1 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment));
+    MYSQL *conn;
+  
+    conn = mysql_init(NULL); //To prepare sturcture to connection
+    
+    if (!(mysql_real_connect(conn, host, user, password, dbname, port, unix_socket, flag)))
+    {
+      fprintf(stderr, "nError: %s [%d]\n", mysql_error(conn), mysql_errno(conn));
+      exit(1);
+    }
+    printf("Connection Successfull\n\n"); 
+    
+    // printf("%s\n", PICKUP);
+    // printf("%s\n", DESTINATION);
+    // printf("%s\n", PICKUPDATE);
+    // printf("%s\n", DESTINATIONDATE);
+    // printf("%s\n", USER_ID);
+
+    const char *query = "INSERT INTO product (title, volume, type, pick_up, pick_up_time, destination, destination_time, status, client_id) VALUES (";
+    char * new_str ;
+    
+    if((new_str = malloc(strlen(query)+1000)) != NULL){
+        new_str[0] = '\0';   // ensures the memory is an empty string
+        strcat(new_str,query);
+        strcat(new_str,"'");
+        strcat(new_str,TITLE);
+        strcat(new_str,"','");
+        strcat(new_str, VOLUME);
+        strcat(new_str,"','");
+        strcat(new_str, TYPE);
+        strcat(new_str,"','");
+        strcat(new_str, PICKUP);
+        strcat(new_str,"','");
+        strcat(new_str, PICKUPDATE);
+        strcat(new_str,"','");
+        strcat(new_str, DESTINATION);
+        strcat(new_str,"','");
+        strcat(new_str, DESTINATIONDATE);
+        strcat(new_str,"','");
+        strcat(new_str, "0");
+        strcat(new_str,"','");
+        strcat(new_str, USER_ID);
+        strcat(new_str,"');");
+    }
+    query = new_str;
+    // const char *query = "SELECT * FROM `user` where username=";
+    //char * new_str ;
+    // if((new_str = malloc(strlen(query)+strlen(u)+2)) != NULL){
+    //     new_str[0] = '\0';   // ensures the memory is an empty string
+    //     strcat(new_str,query);
+    //     strcat(new_str,"'");
+    //     strcat(new_str,p);
+    //     strcat(new_str,"'");
+    //     strcat(new_str,";");
+    // }
+    printf("%s\n", new_str);
+    if (mysql_query(conn, new_str) != 0)
+    {
+      fprintf(stderr, "%s\n", mysql_error(conn));
+      exit(-1);
+    } else {
+    
+    MYSQL_RES *query_results = mysql_store_result(conn);
+    
+    if (query_results) { // make sure there *are* results..
+      MYSQL_ROW row;
+
+
+      int check = 0;
+      while((row = mysql_fetch_row(query_results)) !=0)
+      {
+        check = 1;
+        printf("%s\n", "dsvfbd");
+        //printf("%s\t%s\t%s\t%s\t\n",row[0],row[1], row[2], row[3]);
+      }
+
+      mysql_free_result(query_results);
+    }
+  }
+   //  GtkTreeIter iter;
+   //  GtkTreeView *treeview_payment = GTK_TREE_VIEW((user_data));
+   //  GtkListStore *liststore1 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment));
        
-   // gtk_list_store_remove (GTK_LIST_STORE(liststore1), &iter);
-    //printf("%s\n", VOLUME);
-    gtk_list_store_append(liststore1, &iter);
-    //gtk_list_store_set(liststore1, &iter, 0, "Pepsi Cola", 1, "sdsdsd", 2, "10.0" ,3, "10.0", -1);
-   gtk_list_store_set(liststore1, &iter, 0,  TITLE, 1, TYPE, 2, VOLUME, 3, "on hold", -1);
+   // // gtk_list_store_remove (GTK_LIST_STORE(liststore1), &iter);
+   //  //printf("%s\n", VOLUME);
+   //  gtk_list_store_append(liststore1, &iter);
+   //  //gtk_list_store_set(liststore1, &iter, 0, "Pepsi Cola", 1, "sdsdsd", 2, "10.0" ,3, "10.0", -1);
+
+   // gtk_list_store_set(liststore1, &iter, 0,  TITLE, 1, TYPE, 2, VOLUME, 3, "on hold", -1);
   
     gtk_widget_hide(window_order);
     gtk_widget_show(window_payment);
