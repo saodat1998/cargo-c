@@ -1,14 +1,15 @@
 ///gcc -export-dynamic -Wall `pkg-config --cflags --libs gtk+-3.0` admin.c -o admin -pthread `pkg-config --cflags --libs gtk+-3.0`
 
-//  ./admin
+//  ./driver
 
-//username: admin
-//password: 1234
+//username: driver
+//password: 1
 
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <mysql/mysql.h>
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -18,17 +19,18 @@
 #include <string.h>
 #include <sys/types.h>
 #include <pthread.h>
-#include <mysql/mysql.h>
 
 
 GtkBuilder *builder;
 GtkWidget *window_admin;
 GtkWidget *window_order;
 GtkWidget *window_order_history;
-
+GtkWidget *window_change_status;
+GtkWidget *window_users_list;
 
 #define PORT 8888
 #define BUFSIZE 1024
+
 
 
 static char *host = "bxkkera27hebzuadghy0-mysql.services.clever-cloud.com";
@@ -38,7 +40,6 @@ static char *dbname = "bxkkera27hebzuadghy0";
 unsigned int port = 3306;
 static char *unix_socket = NULL; // To specify connection type
 unsigned int flag = 0; // To specify ODBS connection
-
 
 	void send_to_all(int j, int i, int sockfd, int nbytes_recvd, char *recv_buf, fd_set *master)
 {
@@ -58,7 +59,7 @@ void send_recv(int i, fd_set *master, int sockfd, int fdmax)
 
   if ((nbytes_recvd = recv(i, recv_buf, BUFSIZE, 0)) <= 0) {
     if (nbytes_recvd == 0) {
-      printf("socket %d connected\n", i);
+      printf("socket %d hung up\n", i);
     }else {
       perror("recv");
     }
@@ -66,33 +67,6 @@ void send_recv(int i, fd_set *master, int sockfd, int fdmax)
     FD_CLR(i, master);
   }else {
 	recv_buf[nbytes_recvd] = '\0';
-
-//   if(!strcmp(recv_buf,"Coca Cola"))
-//   {
-//       signal_cola=1;
-//   }
-//
-//   if(!strcmp(recv_buf,"Water"))
-//   {
-//       signal_water=1;
-//   }
-//
-//   if(!strcmp(recv_buf,"Cars"))
-//   {
-//       signal_cars=1;
-//   }
-//   if(!strcmp(recv_buf,"Carrot"))
-//   {
-//       signal_carrot=1;
-//   }
-// if(!strcmp(recv_buf,"Juice"))
-//   {
-//       signal_juice=1;
-//   }
-//   if(!strcmp(recv_buf,"Pepsi Cola"))
-//   {
-//       signal_pepsi=1;
-//   }
 
     printf("%s\n", recv_buf);
 
@@ -152,20 +126,25 @@ void connect_request(int *sockfd, struct sockaddr_in *my_addr)
   fflush(stdout);
 }
 
-// Conn gloabal
+
+
 MYSQL *conn;
 int main (int argc, char *argv[])
 {
-	// Database connect
-		conn = mysql_init(NULL); //To prepare sturcture to connection
 
-		if (!(mysql_real_connect(conn, host, user, password, dbname, port, unix_socket, flag)))
-		{
-			fprintf(stderr, "nError: %s [%d]\n", mysql_error(conn), mysql_errno(conn));
-			exit(1);
-		}
-		printf("Connection Successfull\n\n");
-		// /// /// /// /// // // // / / / // // /
+
+  conn = mysql_init(NULL); //To prepare sturcture to connection
+
+  if (!(mysql_real_connect(conn, host, user, password, dbname, port, unix_socket, flag)))
+  {
+    fprintf(stderr, "nError: %s [%d]\n", mysql_error(conn), mysql_errno(conn));
+    exit(1);
+  }
+  printf("Connection Successfull\n\n");
+
+
+
+
    pthread_t thread_glade;
 
 	fd_set master;
@@ -192,10 +171,14 @@ int main (int argc, char *argv[])
     window_admin = GTK_WIDGET(gtk_builder_get_object(builder, "window_admin"));
     window_order = GTK_WIDGET(gtk_builder_get_object(builder, "window_order"));
     window_order_history = GTK_WIDGET(gtk_builder_get_object(builder, "window_order_history"));
+		window_change_status = GTK_WIDGET(gtk_builder_get_object(builder, "window_change_status"));
+		window_users_list = GTK_WIDGET(gtk_builder_get_object(builder, "window_users_list"));
 
     gtk_widget_hide (GTK_WIDGET(window_admin));
     gtk_widget_hide (GTK_WIDGET(window_order));
     gtk_widget_hide (GTK_WIDGET(window_order_history));
+    gtk_widget_hide (GTK_WIDGET(window_change_status));
+    gtk_widget_hide (GTK_WIDGET(window_users_list));
 
 
     gtk_widget_show(window_admin);
@@ -241,50 +224,88 @@ gboolean enteredUsername(GtkEntry *e1, gpointer  user)
         return FALSE;
     }
 
-void on_bottom_admin_apply_clicked()
-{
-    // if (strcmp(USERNAME,"admin") == 0 && strcmp(PASSWORD,"1234") == 0)
-    // {
-		//
-    //     gtk_widget_show(window_order);
-    //     gtk_widget_hide(window_admin);
-    // }
-		const char *query = "SELECT username, password FROM `user` where user_type='admin'";
+		const gchar *PRODUCT_ID;
+		const gchar *CHANGED_STATUS;
+		gboolean entered_product_id(GtkEntry *e1, gpointer user) {
+			PRODUCT_ID = gtk_entry_get_text((e1));
+			return FALSE;
+		}
+		gboolean entered_status(GtkEntry *e2, gpointer user) {
+			CHANGED_STATUS = gtk_entry_get_text((e2));
+			return FALSE;
+		}
 
-		if (mysql_query(conn, query) != 0)
-		{
+void on_status_clicked() {
+	const char *query = "UPDATE product SET status=";
+	char * new_str ;
+
+	if((new_str = malloc(strlen(query)+500)) != NULL){
+			new_str[0] = '\0';   // ensures the memory is an empty string
+			strcat(new_str,query);
+			strcat(new_str, CHANGED_STATUS);
+			strcat(new_str, " WHERE ");
+			strcat(new_str,"product_id=");
+			strcat(new_str, PRODUCT_ID);
+			strcat(new_str,";");
+	}
+	query = new_str;
+
+	if (mysql_query(conn, new_str) != 0)
+	{
 		fprintf(stderr, "%s\n", mysql_error(conn));
 		exit(-1);
-		} else {
+	} else {
 
 		MYSQL_RES *query_results = mysql_store_result(conn);
-		if (query_results) { // make sure there *are* results..
-					MYSQL_ROW row;
+		mysql_free_result(query_results);
 
-					while((row = mysql_fetch_row(query_results)) !=0)
+		gtk_widget_show(window_order);
+		gtk_widget_hide(window_change_status);
+	}
+}
+
+void on_change_status_menu_clicked() {
+	gtk_widget_show(window_change_status);
+	gtk_widget_hide(window_order);
+}
+
+void on_bottom_admin_apply_clicked()
+{
+	const char *query = "SELECT username, password FROM `user` where user_type='admin'";
+
+	if (mysql_query(conn, query) != 0)
+	{
+	fprintf(stderr, "%s\n", mysql_error(conn));
+	exit(-1);
+	} else {
+
+	MYSQL_RES *query_results = mysql_store_result(conn);
+	if (query_results) { // make sure there *are* results..
+				MYSQL_ROW row;
+
+				while((row = mysql_fetch_row(query_results)) !=0)
+				{
+
+					/* Do whatever you need to with 'f' */
+					// printf(row[0]);
+					if (strcmp(row[0], USERNAME) == 0 && strcmp(row[1], PASSWORD) == 0)
 					{
-
-						/* Do whatever you need to with 'f' */
-						// printf(row[0]);
-						if (strcmp(row[0], USERNAME) == 0 && strcmp(row[1], PASSWORD) == 0)
-						{
-							gtk_widget_show(window_order);
-					    gtk_widget_hide(window_admin);
-							break;
-						}
-
+						gtk_widget_show(window_order);
+						gtk_widget_hide(window_admin);
+						break;
 					}
 
-					/* Free results when done */
-					mysql_free_result(query_results);
 				}
+
+				/* Free results when done */
+				mysql_free_result(query_results);
 			}
+		}
 }
 
 void on_logout_clicked()
 {
        gtk_widget_destroy(window_order);
-			 exit(0);
 }
 
 //menu order
@@ -295,58 +316,115 @@ void on_bottom_apply_order_clicked()
     gtk_widget_hide(window_order);
 }
 
+
+GtkTreeIter iter;
+
+GtkTreeView *treeview_payment_admin;
+
+GtkListStore *liststore2;
+
 void on_bottom_history_clicked(GtkButton *button,gpointer *admin_data)
 {
  // signal_cola=s;
-// char *cola="coca-cola";
-// char *pepsi="pepsi-cola";
-// char *juice="juice";
-// char *water="water";
-// char *carrot="Carrot";
-// char *cars="Cars";
+ const char *query = "SELECT * FROM `product`";
+
+ if (mysql_query(conn, query) != 0)
+ {
+ fprintf(stderr, "%s\n", mysql_error(conn));
+ exit(-1);
+ } else {
+// GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(0));
+ MYSQL_RES *query_results = mysql_store_result(conn);
+ if (query_results) { // make sure there *are* results..
+			 MYSQL_ROW row;
+
+			 while((row = mysql_fetch_row(query_results)) !=0)
+			 {
+
+				 /* Do whatever you need to with 'f' */
+				 // printf(row[0]);
 
 
-const char *query = "SELECT * FROM `product` ";
+				 // GtkTreeIter iter;
+				 //
+				 // GtkTreeView *treeview_payment_admin = GTK_TREE_VIEW(admin_data);
+				 //
+				 // GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
 
-if (mysql_query(conn, query) != 0)
-{
-fprintf(stderr, "%s\n", mysql_error(conn));
-exit(-1);
-} else {
+				 treeview_payment_admin = GTK_TREE_VIEW(admin_data);
 
-MYSQL_RES *query_results = mysql_store_result(conn);
-if (query_results) { // make sure there *are* results..
-			MYSQL_ROW row;
-
-			while((row = mysql_fetch_row(query_results)) !=0)
-			{
-
-				/* Do whatever you need to with 'f' */
-				// printf(row[0]);
-
-				GtkTreeIter iter;
-
-		    GtkTreeView *treeview_payment_admin = GTK_TREE_VIEW(admin_data);
-
-		    GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
-
-		    gtk_list_store_append(liststore2, &iter);
-		    gtk_list_store_set(liststore2, &iter, 0, row[1], 1,  row[2], 2, row[3], 3, row[4], 4, row[5], 5, row[6], 6, row[7], 7, row[8], 8, row[9], -1);
+				 liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
 
 
-				gtk_widget_show(window_order_history);
-				gtk_widget_hide(window_order);
+				 gtk_list_store_append(liststore2, &iter);
+				 gtk_list_store_set(liststore2, &iter, 0, row[1], 1,  row[2], 2, row[3], 3, row[4], 4, row[5], 5, row[6], 6, row[7], 7, row[8], 8, row[9], 9, row[0], -1);
 
-			}
+				 // gtk_list_store_remove (GTK_LIST_STORE(liststore2), &iter);
 
-			/* Free results when done */
-			mysql_free_result(query_results);
-		}
-	}
+			 }
+
+			 /* Free results when done */
+			 mysql_free_result(query_results);
+		 }
+	 }
+    gtk_widget_show(window_order_history);
+    gtk_widget_hide(window_order);
+
+    //     gtk_widget_show(window_order);
+    // gtk_widget_hide(window_order_history);
 }
 
 void on_bottom_order_history_back_clicked()
 {
+		gtk_list_store_clear(liststore2);
     gtk_widget_show(window_order);
     gtk_widget_hide(window_order_history);
+}
+
+void on_users_list_clicked(GtkButton *button,gpointer *admin_data) {
+	const char *query = "SELECT username FROM `user`";
+
+  if (mysql_query(conn, query) != 0)
+  {
+  fprintf(stderr, "%s\n", mysql_error(conn));
+  exit(-1);
+  } else {
+ // GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(0));
+  MYSQL_RES *query_results = mysql_store_result(conn);
+  if (query_results) { // make sure there *are* results..
+ 			 MYSQL_ROW row;
+
+ 			 while((row = mysql_fetch_row(query_results)) !=0)
+ 			 {
+
+ 				 /* Do whatever you need to with 'f' */
+ 				 // printf(row[0]);
+
+
+ 				 GtkTreeIter iter1;
+
+ 				 GtkTreeView *treeview_username = GTK_TREE_VIEW(admin_data);
+
+ 				 GtkListStore *liststore1 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_username));
+
+
+ 				 gtk_list_store_append(liststore1, &iter);
+ 				 gtk_list_store_set(liststore1, &iter, 0, row[0], -1);
+
+ 				 // gtk_list_store_remove (GTK_LIST_STORE(liststore2), &iter);
+
+ 			 }
+
+ 			 /* Free results when done */
+ 			 mysql_free_result(query_results);
+ 		 }
+ 	 }
+     gtk_widget_show(window_users_list);
+     gtk_widget_hide(window_order);
+
+}
+
+void on_users_list_back() {
+	gtk_widget_show(window_order);
+	gtk_widget_hide(window_users_list);
 }
