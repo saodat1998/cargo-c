@@ -25,7 +25,7 @@ GtkBuilder *builder;
 GtkWidget *window_admin;
 GtkWidget *window_order;
 GtkWidget *window_order_history;
-
+GtkWidget *window_change_status;
 
 #define PORT 8888
 #define BUFSIZE 1024
@@ -205,10 +205,12 @@ int main (int argc, char *argv[])
     window_admin = GTK_WIDGET(gtk_builder_get_object(builder, "window_admin"));
     window_order = GTK_WIDGET(gtk_builder_get_object(builder, "window_order"));
     window_order_history = GTK_WIDGET(gtk_builder_get_object(builder, "window_order_history"));
+		window_change_status = GTK_WIDGET(gtk_builder_get_object(builder, "window_change_status"));
 
     gtk_widget_hide (GTK_WIDGET(window_admin));
     gtk_widget_hide (GTK_WIDGET(window_order));
     gtk_widget_hide (GTK_WIDGET(window_order_history));
+    gtk_widget_hide (GTK_WIDGET(window_change_status));
 
 
     gtk_widget_show(window_admin);
@@ -253,6 +255,51 @@ gboolean enteredUsername(GtkEntry *e1, gpointer  user)
         PASSWORD = gtk_entry_get_text ((e2));
         return FALSE;
     }
+
+		const gchar *PRODUCT_ID;
+		const gchar *CHANGED_STATUS;
+		gboolean entered_product_id(GtkEntry *e1, gpointer user) {
+			PRODUCT_ID = gtk_entry_get_text((e1));
+			return FALSE;
+		}
+		gboolean entered_status(GtkEntry *e2, gpointer user) {
+			CHANGED_STATUS = gtk_entry_get_text((e2));
+			return FALSE;
+		}
+
+void on_status_clicked() {
+	const char *query = "UPDATE product SET status=";
+	char * new_str ;
+
+	if((new_str = malloc(strlen(query)+500)) != NULL){
+			new_str[0] = '\0';   // ensures the memory is an empty string
+			strcat(new_str,query);
+			strcat(new_str, CHANGED_STATUS);
+			strcat(new_str, " WHERE ");
+			strcat(new_str,"product_id=");
+			strcat(new_str, PRODUCT_ID);
+			strcat(new_str,";");
+	}
+	query = new_str;
+
+	if (mysql_query(conn, new_str) != 0)
+	{
+		fprintf(stderr, "%s\n", mysql_error(conn));
+		exit(-1);
+	} else {
+
+		MYSQL_RES *query_results = mysql_store_result(conn);
+		mysql_free_result(query_results);
+
+		gtk_widget_show(window_order);
+		gtk_widget_hide(window_change_status);
+	}
+}
+
+void on_change_status_menu_clicked() {
+	gtk_widget_show(window_change_status);
+	gtk_widget_hide(window_order);
+}
 
 void on_bottom_admin_apply_clicked()
 {
@@ -304,14 +351,14 @@ void on_bottom_apply_order_clicked()
 void on_bottom_history_clicked(GtkButton *button,gpointer *admin_data)
 {
  // signal_cola=s;
- const char *query = "SELECT * FROM `product` ";
+ const char *query = "SELECT * FROM `product`";
 
  if (mysql_query(conn, query) != 0)
  {
  fprintf(stderr, "%s\n", mysql_error(conn));
  exit(-1);
  } else {
-
+// GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(0));
  MYSQL_RES *query_results = mysql_store_result(conn);
  if (query_results) { // make sure there *are* results..
 			 MYSQL_ROW row;
@@ -322,18 +369,18 @@ void on_bottom_history_clicked(GtkButton *button,gpointer *admin_data)
 				 /* Do whatever you need to with 'f' */
 				 // printf(row[0]);
 
+
 				 GtkTreeIter iter;
 
 				 GtkTreeView *treeview_payment_admin = GTK_TREE_VIEW(admin_data);
 
 				 GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
 
+
 				 gtk_list_store_append(liststore2, &iter);
-				 gtk_list_store_set(liststore2, &iter, 0, row[1], 1,  row[2], 2, row[3], 3, row[4], 4, row[5], 5, row[6], 6, row[7], 7, row[8], 8, row[9], -1);
+				 gtk_list_store_set(liststore2, &iter, 0, row[1], 1,  row[2], 2, row[3], 3, row[4], 4, row[5], 5, row[6], 6, row[7], 7, row[8], 8, row[9], 9, row[0], -1);
 
-
-				 gtk_widget_show(window_order_history);
-				 gtk_widget_hide(window_order);
+				 // gtk_list_store_remove (GTK_LIST_STORE(liststore2), &iter);
 
 			 }
 
@@ -350,6 +397,7 @@ void on_bottom_history_clicked(GtkButton *button,gpointer *admin_data)
 
 void on_bottom_order_history_back_clicked()
 {
+		// GtkListStore *liststore2 = GTK_LIST_STORE(gtk_list_store_new());
     gtk_widget_show(window_order);
     gtk_widget_hide(window_order_history);
 }
