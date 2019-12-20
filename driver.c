@@ -313,6 +313,13 @@ void on_bottom_apply_order_clicked()
     gtk_widget_hide(window_order);
 }
 
+
+GtkTreeIter iter;
+
+GtkTreeView *treeview_payment_admin;
+
+GtkListStore *liststore2;
+
 void on_bottom_history_clicked(GtkButton *button,gpointer *admin_data)
 {
  // signal_cola=s;
@@ -335,11 +342,15 @@ void on_bottom_history_clicked(GtkButton *button,gpointer *admin_data)
 				 // printf(row[0]);
 
 
-				 GtkTreeIter iter;
+				 // GtkTreeIter iter;
+				 //
+				 // GtkTreeView *treeview_payment_admin = GTK_TREE_VIEW(admin_data);
+				 //
+				 // GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
 
-				 GtkTreeView *treeview_payment_admin = GTK_TREE_VIEW(admin_data);
+				 treeview_payment_admin = GTK_TREE_VIEW(admin_data);
 
-				 GtkListStore *liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
+				 liststore2 = GTK_LIST_STORE(gtk_tree_view_get_model(treeview_payment_admin));
 
 
 				 gtk_list_store_append(liststore2, &iter);
@@ -362,7 +373,7 @@ void on_bottom_history_clicked(GtkButton *button,gpointer *admin_data)
 
 void on_bottom_order_history_back_clicked()
 {
-		// GtkListStore *liststore2 = GTK_LIST_STORE(gtk_list_store_new());
+		gtk_list_store_clear(liststore2);
     gtk_widget_show(window_order);
     gtk_widget_hide(window_order_history);
 }
