@@ -270,6 +270,7 @@ void on_bottom_admin_apply_clicked()
 						{
 							gtk_widget_show(window_order);
 					    gtk_widget_hide(window_admin);
+							break;
 						}
 
 					}
