@@ -2,15 +2,10 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">images/payment.png</property>
-  </object>
   <object class="GtkWindow" id="MainWindow">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Online Shopping System</property>
+    <property name="title" translatable="yes">Cargo System Team-12</property>
     <property name="resizable">False</property>
     <property name="window_position">center</property>
     <property name="default_width">1000</property>
@@ -48,8 +43,7 @@
                 <property name="margin_bottom">13</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">False</property>
-                <property name="label" translatable="yes">Welcome to Online Shopping System 
-                         Menu</property>
+                <property name="label" translatable="yes">Cargo System Team-12</property>
                 <property name="justify">fill</property>
                 <property name="wrap">True</property>
                 <property name="width_chars">0</property>
@@ -61,40 +55,6 @@
                 <property name="position">0</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkButton" id="move_payment">
-                <property name="label">Payment</property>
-                <property name="height_request">30</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="border_width">0</property>
-                <property name="image">image2</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_move_payment_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="quit">
-                <property name="label">gtk-quit</property>
-                <property name="width_request">60</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="border_width">0</property>
-                <property name="use_stock">True</property>
-                <property name="image_position">top</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_quit_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">2</property>
-              </packing>
-            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -103,247 +63,89 @@
           </packing>
         </child>
         <child>
-          <placeholder/>
+          <object class="GtkButton" id="move_payment">
+            <property name="label">Order</property>
+            <property name="height_request">30</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="margin_left">20</property>
+            <property name="margin_right">20</property>
+            <property name="margin_bottom">5</property>
+            <property name="border_width">0</property>
+            <property name="image_position">top</property>
+            <property name="always_show_image">True</property>
+            <signal name="clicked" handler="on_order_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
         </child>
         <child>
-          <placeholder/>
+          <object class="GtkButton" id="quit">
+            <property name="label">Order History</property>
+            <property name="width_request">60</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="margin_left">20</property>
+            <property name="margin_right">20</property>
+            <property name="margin_bottom">5</property>
+            <property name="border_width">0</property>
+            <property name="image_position">top</property>
+            <property name="always_show_image">True</property>
+            <signal name="clicked" handler="on_order_history_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
         </child>
         <child>
-          <placeholder/>
+          <object class="GtkButton">
+            <property name="label">gtk-quit</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="margin_left">20</property>
+            <property name="margin_right">20</property>
+            <property name="margin_bottom">5</property>
+            <property name="use_stock">True</property>
+            <signal name="clicked" handler="on_quit_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
         </child>
       </object>
     </child>
   </object>
   <object class="GtkListStore" id="liststore1">
     <columns>
-      <!-- column-name title -->
-      <column type="gchararray"/>
-      <!-- column-name type -->
+      <!-- column-name name -->
       <column type="gchararray"/>
       <!-- column-name volume -->
       <column type="gchararray"/>
+      <!-- column-name type -->
+      <column type="gchararray"/>
+      <!-- column-name pick_up -->
+      <column type="gchararray"/>
+      <!-- column-name pick_up_time -->
+      <column type="gchararray"/>
+      <!-- column-name dest -->
+      <column type="gchararray"/>
+      <!-- column-name dest_time -->
+      <column type="gchararray"/>
       <!-- column-name status -->
       <column type="gchararray"/>
+      <!-- column-name client_id -->
+      <column type="gchararray"/>
     </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">MFDNF</col>
-        <col id="1" translatable="yes">FDFD</col>
-        <col id="2" translatable="yes">DFDF</col>
-        <col id="3" translatable="yes">SSS</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkWindow" id="window_payment">
-    <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Online Shopping System</property>
-    <property name="window_position">center</property>
-    <property name="default_width">1000</property>
-    <property name="default_height">600</property>
-    <property name="icon">images/icon4.png</property>
-    <signal name="activate-default" handler="gtk_widget_show" swapped="no"/>
-    <signal name="activate-focus" handler="gtk_widget_show" swapped="no"/>
-    <signal name="delete-event" handler="gtk_widget_hide" swapped="no"/>
-    <signal name="destroy" handler="gtk_widget_hide" swapped="no"/>
-    <signal name="destroy-event" handler="gtk_widget_hide" swapped="no"/>
-    <child>
-      <placeholder/>
-    </child>
-    <child>
-      <object class="GtkBox">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkLabel">
-            <property name="width_request">400</property>
-            <property name="height_request">50</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="can_default">True</property>
-            <property name="has_default">True</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <property name="margin_bottom">13</property>
-            <property name="hexpand">True</property>
-            <property name="vexpand">False</property>
-            <property name="label" translatable="yes">Welcome to Online Shopping System 
-                  Menu - Payment</property>
-            <property name="justify">fill</property>
-            <property name="wrap">True</property>
-            <property name="width_chars">0</property>
-            <attributes>
-              <attribute name="font-desc" value="Sans Bold 13"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkScrolledWindow" id="scrolledwindow5">
-            <property name="width_request">2</property>
-            <property name="height_request">7</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="border_width">2</property>
-            <property name="shadow_type">in</property>
-            <property name="min_content_width">101</property>
-            <property name="min_content_height">1</property>
-            <property name="propagate_natural_width">True</property>
-            <property name="propagate_natural_height">True</property>
-            <child>
-              <object class="GtkTreeView" id="treeview_payment">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="model">liststore1</property>
-                <property name="search_column">0</property>
-                <child internal-child="selection">
-                  <object class="GtkTreeSelection"/>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="treeviewcolumn_title">
-                    <property name="min_width">150</property>
-                    <property name="title" translatable="yes">Title</property>
-                    <property name="expand">True</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="cellrenderertext7"/>
-                      <attributes>
-                        <attribute name="size">5</attribute>
-                        <attribute name="text">0</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="treeviewcolumn_type">
-                    <property name="min_width">150</property>
-                    <property name="title" translatable="yes">Type</property>
-                    <property name="expand">True</property>
-                    <child>
-                      <object class="GtkCellRendererSpin" id="cellrendererspin4"/>
-                      <attributes>
-                        <attribute name="single-paragraph-mode">0</attribute>
-                        <attribute name="text">0</attribute>
-                        <attribute name="adjustment">2</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="treeviewcolumn_Volume">
-                    <property name="min_width">150</property>
-                    <property name="title" translatable="yes">Volume</property>
-                    <property name="expand">True</property>
-                    <child>
-                      <object class="GtkCellRendererCombo" id="cellrenderercombo34"/>
-                      <attributes>
-                        <attribute name="single-paragraph-mode">0</attribute>
-                        <attribute name="text">2</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="treeviewcolumn_Status">
-                    <property name="min_width">200</property>
-                    <property name="title" translatable="yes">Status</property>
-                    <property name="expand">True</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="cellrenderertext35"/>
-                      <attributes>
-                        <attribute name="text">3</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkActionBar">
-            <property name="width_request">100</property>
-            <property name="height_request">80</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">end</property>
-            <property name="valign">end</property>
-            <child>
-              <object class="GtkButton" id="payment_back">
-                <property name="label" translatable="yes">Back</property>
-                <property name="width_request">110</property>
-                <property name="height_request">40</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="margin_top">5</property>
-                <property name="margin_bottom">5</property>
-                <property name="border_width">3</property>
-                <signal name="clicked" handler="on_payment_back_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="payment_cancel">
-                <property name="label" translatable="yes">Cancel</property>
-                <property name="width_request">110</property>
-                <property name="height_request">40</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="margin_top">5</property>
-                <property name="margin_bottom">5</property>
-                <property name="border_width">3</property>
-                <signal name="clicked" handler="on_payment_cancel_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="order">
-                <property name="label" translatable="yes">Order</property>
-                <property name="width_request">110</property>
-                <property name="height_request">40</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="margin_top">5</property>
-                <property name="margin_bottom">5</property>
-                <property name="border_width">3</property>
-                <signal name="clicked" handler="on_order_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="pack_type">end</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-      </object>
-    </child>
   </object>
   <object class="GtkWindow" id="login">
     <property name="can_focus">False</property>
@@ -429,6 +231,219 @@
             <property name="expand">False</property>
             <property name="fill">False</property>
             <property name="position">4</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="order_history">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Online Shopping System</property>
+    <property name="default_width">1000</property>
+    <property name="default_height">600</property>
+    <property name="icon">images/icon4.png</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkLabel" id="label5">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_top">20</property>
+            <property name="margin_bottom">10</property>
+            <property name="label" translatable="yes">Cargo System</property>
+            <property name="justify">center</property>
+            <attributes>
+              <attribute name="font-desc" value="Sans Bold Italic 14"/>
+              <attribute name="style" value="normal"/>
+              <attribute name="variant" value="normal"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTreeView" id="treeview_payment_admin">
+            <property name="height_request">30</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="search_column">0</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="treeviewcolumn_name">
+                <property name="min_width">150</property>
+                <property name="title" translatable="yes">Name</property>
+                <property name="expand">True</property>
+                <child>
+                  <object class="GtkCellRendererText" id="cellrenderertext7"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="treeviewcolumn_volume">
+                <property name="min_width">150</property>
+                <property name="title" translatable="yes">Volume</property>
+                <property name="expand">True</property>
+                <child>
+                  <object class="GtkCellRendererSpin" id="cellrendererspin4"/>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="treeviewcolumn_type">
+                <property name="min_width">150</property>
+                <property name="title" translatable="yes">Type</property>
+                <property name="expand">True</property>
+                <child>
+                  <object class="GtkCellRendererSpin" id="cellrendererspin1"/>
+                  <attributes>
+                    <attribute name="text">2</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="treeviewcolumn_pickup">
+                <property name="min_width">150</property>
+                <property name="title" translatable="yes">Pick Up</property>
+                <property name="expand">True</property>
+                <child>
+                  <object class="GtkCellRendererSpin" id="cellrendererspin2"/>
+                  <attributes>
+                    <attribute name="text">3</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="treeviewcolumn_pickup_time">
+                <property name="min_width">150</property>
+                <property name="title" translatable="yes">Pick Up Time</property>
+                <property name="expand">True</property>
+                <child>
+                  <object class="GtkCellRendererSpin" id="cellrendererspin3"/>
+                  <attributes>
+                    <attribute name="text">4</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="treeviewcolumn_dest">
+                <property name="min_width">150</property>
+                <property name="title" translatable="yes">Dest</property>
+                <property name="expand">True</property>
+                <child>
+                  <object class="GtkCellRendererSpin" id="cellrendererspin5"/>
+                  <attributes>
+                    <attribute name="text">5</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="treeviewcolumn_dest_time">
+                <property name="min_width">150</property>
+                <property name="title" translatable="yes">Dest time</property>
+                <property name="expand">True</property>
+                <child>
+                  <object class="GtkCellRendererSpin" id="cellrendererspin6"/>
+                  <attributes>
+                    <attribute name="text">6</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="treeviewcolumn_Status">
+                <property name="min_width">150</property>
+                <property name="title" translatable="yes">Status</property>
+                <property name="expand">True</property>
+                <child>
+                  <object class="GtkCellRendererSpin" id="cellrendererspin7"/>
+                  <attributes>
+                    <attribute name="text">7</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="treeviewcolumn_clientid">
+                <property name="min_width">150</property>
+                <property name="title" translatable="yes">Client</property>
+                <property name="expand">True</property>
+                <child>
+                  <object class="GtkCellRendererSpin" id="cellrendererspin8"/>
+                  <attributes>
+                    <attribute name="text">8</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkActionBar">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">end</property>
+            <property name="margin_top">2</property>
+            <property name="margin_bottom">2</property>
+            <child>
+              <object class="GtkButton" id="bottom_order_history_back">
+                <property name="label" translatable="yes">Back</property>
+                <property name="width_request">110</property>
+                <property name="height_request">40</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="border_width">3</property>
+              </object>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="bottom_apply_order">
+                <property name="label" translatable="yes">Apply Order</property>
+                <property name="width_request">110</property>
+                <property name="height_request">40</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="border_width">3</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>
@@ -749,6 +764,20 @@
             <property name="margin_top">10</property>
             <property name="margin_bottom">10</property>
             <signal name="clicked" handler="product_submit_clicked" object="treeview_payment" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">9</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="label" translatable="yes">Cancel</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="on_cancel_clicked" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
