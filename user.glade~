@@ -96,7 +96,7 @@
             <property name="border_width">0</property>
             <property name="image_position">top</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="on_order_history_clicked" swapped="no"/>
+            <signal name="clicked" handler="on_order_history_clicked" object="liststore1" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -147,95 +147,6 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkWindow" id="login">
-    <property name="can_focus">False</property>
-    <property name="title" translatable="yes">User Authentication</property>
-    <property name="resizable">False</property>
-    <property name="window_position">center</property>
-    <property name="default_width">600</property>
-    <property name="default_height">400</property>
-    <property name="icon">images/icon4.png</property>
-    <property name="gravity">center</property>
-    <child>
-      <placeholder/>
-    </child>
-    <child>
-      <object class="GtkBox" id="box1">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">center</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">21</property>
-        <child>
-          <object class="GtkLabel" id="label1">
-            <property name="height_request">50</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Cargo System Team-12</property>
-            <attributes>
-              <attribute name="font-desc" value="Sans Bold 14"/>
-              <attribute name="foreground" value="#2e2e34343636"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkEntry" id="entry1">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="margin_left">90</property>
-            <property name="margin_right">90</property>
-            <property name="margin_top">10</property>
-            <property name="placeholder_text" translatable="yes">Username</property>
-            <signal name="focus-out-event" handler="enteredUsername" swapped="no"/>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkEntry" id="entry2">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="margin_left">90</property>
-            <property name="margin_right">90</property>
-            <property name="visibility">False</property>
-            <property name="placeholder_text" translatable="yes">Password</property>
-            <signal name="focus-out-event" handler="enteredPassword" swapped="no"/>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="button1">
-            <property name="label" translatable="yes">Log In</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="margin_left">110</property>
-            <property name="margin_right">110</property>
-            <property name="margin_top">15</property>
-            <signal name="clicked" handler="submit_clicked" swapped="no"/>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
   <object class="GtkWindow" id="order_history">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Online Shopping System</property>
@@ -275,6 +186,7 @@
             <property name="height_request">30</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="model">liststore1</property>
             <property name="search_column">0</property>
             <child internal-child="selection">
               <object class="GtkTreeSelection"/>
@@ -444,6 +356,95 @@
             <property name="fill">True</property>
             <property name="pack_type">end</property>
             <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="login">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">User Authentication</property>
+    <property name="resizable">False</property>
+    <property name="window_position">center</property>
+    <property name="default_width">600</property>
+    <property name="default_height">400</property>
+    <property name="icon">images/icon4.png</property>
+    <property name="gravity">center</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkBox" id="box1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">center</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">21</property>
+        <child>
+          <object class="GtkLabel" id="label1">
+            <property name="height_request">50</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Cargo System Team-12</property>
+            <attributes>
+              <attribute name="font-desc" value="Sans Bold 14"/>
+              <attribute name="foreground" value="#2e2e34343636"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="entry1">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="margin_left">90</property>
+            <property name="margin_right">90</property>
+            <property name="margin_top">10</property>
+            <property name="placeholder_text" translatable="yes">Username</property>
+            <signal name="focus-out-event" handler="enteredUsername" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="entry2">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="margin_left">90</property>
+            <property name="margin_right">90</property>
+            <property name="visibility">False</property>
+            <property name="placeholder_text" translatable="yes">Password</property>
+            <signal name="focus-out-event" handler="enteredPassword" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="button1">
+            <property name="label" translatable="yes">Log In</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="margin_left">110</property>
+            <property name="margin_right">110</property>
+            <property name="margin_top">15</property>
+            <signal name="clicked" handler="submit_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">4</property>
           </packing>
         </child>
       </object>

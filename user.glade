@@ -96,7 +96,7 @@
             <property name="border_width">0</property>
             <property name="image_position">top</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="on_order_history_clicked" swapped="no"/>
+            <signal name="clicked" handler="on_order_history_clicked" object="treeview_payment_admin" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
