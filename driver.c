@@ -40,14 +40,6 @@ unsigned int port = 3306;
 static char *unix_socket = NULL; // To specify connection type
 unsigned int flag = 0; // To specify ODBS connection
 
-
-int signal_cola=0;
-int signal_pepsi=0;
-int signal_juice=0;
-int signal_water=0;
-int signal_carrot=0;
-int signal_cars=0;
-
 	void send_to_all(int j, int i, int sockfd, int nbytes_recvd, char *recv_buf, fd_set *master)
 {
   if (FD_ISSET(j, master)){
@@ -74,33 +66,6 @@ void send_recv(int i, fd_set *master, int sockfd, int fdmax)
     FD_CLR(i, master);
   }else {
 	recv_buf[nbytes_recvd] = '\0';
-
-  if(!strcmp(recv_buf,"Coca Cola"))
-  {
-      signal_cola=1;
-  }
-
-  if(!strcmp(recv_buf,"Water"))
-  {
-      signal_water=1;
-  }
-
-  if(!strcmp(recv_buf,"Cars"))
-  {
-      signal_cars=1;
-  }
-  if(!strcmp(recv_buf,"Carrot"))
-  {
-      signal_carrot=1;
-  }
-if(!strcmp(recv_buf,"Juice"))
-  {
-      signal_juice=1;
-  }
-  if(!strcmp(recv_buf,"Pepsi Cola"))
-  {
-      signal_pepsi=1;
-  }
 
     printf("%s\n", recv_buf);
 
